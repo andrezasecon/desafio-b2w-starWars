@@ -1,6 +1,7 @@
 package br.com.andrezasecon.b2w.apiplanet.service;
 
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
+import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ public interface PlanetService {
     List<Planet> findPlanetByName(String name);
     // Inserir um planeta
     Planet insertPlanet(Planet objPlanet);
-    // Deletar um planeta
-    void deletePlanet(String id);
+    // Criar uma cópia do objeto Planeta para PlanetaDto
+    Planet fromDTO(PlanetDTO objDTO);
 
 }

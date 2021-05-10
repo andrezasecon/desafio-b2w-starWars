@@ -25,16 +25,19 @@ public class PlanetController {
     ResponseEntity<Planet> findPlanetById(@PathVariable String id){
         return planetService.findPlanetById(id).map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
-
     }
 
-    @GetMapping
+
+    // Busca planeta por nome ignorando maiusculas e minusculas
+    @GetMapping(value = "/find/{name}")
+    public List<Planet> findPlanetByName(@PathVariable String name){
+       return planetService.findByNameIgnoreCase(name);
+
+    }
 
     @PostMapping
     public void insertPlanet(@RequestBody Planet objPlanet, HttpServletResponse response ){
         planetService.insertPlanet(objPlanet);
         response.setStatus(HttpServletResponse.SC_CREATED);
     }
-
-
 }

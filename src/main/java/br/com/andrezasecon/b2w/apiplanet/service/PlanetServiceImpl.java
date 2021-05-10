@@ -1,7 +1,6 @@
 package br.com.andrezasecon.b2w.apiplanet.service;
 
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
-import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 import br.com.andrezasecon.b2w.apiplanet.repository.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class PlanetServiceImpl implements PlanetService
     }
 
     @Override
-    public List<Planet> findPlanetByName(String name) {
+    public List<Planet> findByNameIgnoreCase(String name) {
 
         return planetRepository.findByNameIgnoreCase(name);
     }
@@ -39,8 +38,4 @@ public class PlanetServiceImpl implements PlanetService
         return planetRepository.insert(objPlanet);
     }
 
-    @Override
-    public Planet fromDTO(PlanetDTO objDTO) {
-      return new Planet(objDTO.getId(), objDTO.getName(), objDTO.getClimate(), objDTO.getTerrain());
-    }
 }

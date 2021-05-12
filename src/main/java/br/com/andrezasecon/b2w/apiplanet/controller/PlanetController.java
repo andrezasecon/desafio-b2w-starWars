@@ -5,20 +5,24 @@ import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
 import br.com.andrezasecon.b2w.apiplanet.service.PlanetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/planetas")
+@Validated
 public class PlanetController {
 
     @Autowired
     private PlanetServiceImpl planetService;
 
-    @Autowired
+    @MockBean
     private ClientFeignSwapi clientFeignSwapi;
 
     // Busca todos os planetas na base e o número de filmes na Swapi
@@ -69,7 +73,7 @@ public class PlanetController {
 
     // Insere um novo planeta na base de dados
     @PostMapping
-    public void insertPlanet(@RequestBody Planet objPlanet, HttpServletResponse response) {
+    public void insertPlanet(@RequestBody @Valid Planet objPlanet, HttpServletResponse response) {
         planetService.insertPlanet(objPlanet);
         response.setStatus(HttpServletResponse.SC_CREATED);
     }

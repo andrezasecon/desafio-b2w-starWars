@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PlanetServiceImpl implements PlanetService
-{
+public class PlanetServiceImpl implements PlanetService {
 
     @Autowired
     private PlanetRepository planetRepository;
@@ -37,5 +36,4 @@ public class PlanetServiceImpl implements PlanetService
 
         return planetRepository.insert(objPlanet);
     }
-
 }

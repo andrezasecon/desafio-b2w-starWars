@@ -1,10 +1,10 @@
 package br.com.andrezasecon.b2w.apiplanet.service;
 
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
+import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.List;
 import java.util.Optional;
-
 
 public interface PlanetService {
 
@@ -16,4 +16,5 @@ public interface PlanetService {
     List<Planet> findByNameIgnoreCase(String name);
     // Inserir um planeta
     Planet insertPlanet(Planet objPlanet);
+
 }

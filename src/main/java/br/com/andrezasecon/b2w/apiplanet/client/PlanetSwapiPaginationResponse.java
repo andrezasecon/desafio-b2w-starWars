@@ -16,8 +16,8 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlanetSwapiPaginationResponse {
     private Integer count;
-    private String  next;
-    private String  previous;
+    private String next;
+    private String previous;
     private List<SwapiPlanet> results;
 
 }

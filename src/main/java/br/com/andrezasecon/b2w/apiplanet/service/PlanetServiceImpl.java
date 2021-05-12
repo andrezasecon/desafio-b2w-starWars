@@ -16,24 +16,26 @@ public class PlanetServiceImpl implements PlanetService {
 
     @Override
     public List<Planet> findAllPlanets() {
-       return planetRepository.findAll();
+        return planetRepository.findAll();
     }
 
     @Override
     public Optional<Planet> findPlanetById(String id) {
-
         return planetRepository.findById(id);
     }
 
     @Override
     public List<Planet> findByNameIgnoreCase(String name) {
-
         return planetRepository.findByNameIgnoreCase(name);
     }
 
     @Override
     public Planet insertPlanet(Planet objPlanet) {
-
         return planetRepository.insert(objPlanet);
+    }
+
+    @Override
+    public void deletePlanet(String id) {
+        planetRepository.deleteById(id);
     }
 }

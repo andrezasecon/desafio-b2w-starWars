@@ -32,7 +32,6 @@ public class Instantiation implements CommandLineRunner {
         Planet kamino = new Planet(null, "Kamino", "temperate", "ocean", 0);
 
 
-
         planetRepository.saveAll(Arrays.asList(tatooine, alderaan, yavin, hoth, degobah, bespin, endor, naboo, coruscant, kamino));
 
     }

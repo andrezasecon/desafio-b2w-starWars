@@ -1,6 +1,6 @@
 
 
-![](/home/andrezasecon/Pictures/unnamed.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/swapi.png)
 
 
 

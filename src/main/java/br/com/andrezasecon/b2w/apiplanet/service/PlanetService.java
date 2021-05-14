@@ -1,7 +1,6 @@
 package br.com.andrezasecon.b2w.apiplanet.service;
 
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
-import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 import java.util.Optional;

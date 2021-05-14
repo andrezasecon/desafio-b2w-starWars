@@ -33,7 +33,7 @@ import static org.mockserver.model.HttpResponse.response;
 @AutoConfigureMockMvc
 public class PlanetControllerTest {
 
-    private static final String PLANET_URL = "/planetas/find/%s";
+    private static final String PLANET_URL = "/api/find/%s";
     @Autowired
     protected MockMvc mvc;
 

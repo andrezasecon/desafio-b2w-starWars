@@ -3,9 +3,9 @@ package br.com.andrezasecon.b2w.apiplanet.controller;
 import br.com.andrezasecon.b2w.apiplanet.client.ClientFeignSwapi;
 import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
+import br.com.andrezasecon.b2w.apiplanet.service.PlanetService;
 import br.com.andrezasecon.b2w.apiplanet.service.PlanetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +20,9 @@ import java.util.List;
 public class PlanetController {
 
     @Autowired
-    private PlanetServiceImpl planetService;
+    private PlanetService planetService;
 
-    @MockBean
+    @Autowired
     private ClientFeignSwapi clientFeignSwapi;
 
     // Busca todos os planetas na base e o número de filmes na Swapi
@@ -32,7 +32,7 @@ public class PlanetController {
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
             planetsApi.getResults().stream().forEach(pa -> {
-                p.setFilmCount(pa.getFilms().size() + p.getFilmCount());
+                p.setFilmsAppearances(pa.getFilms().size() + p.getFilmsAppearances());
             });
         });
         return planetList;
@@ -41,13 +41,10 @@ public class PlanetController {
     // Busca planeta na base de dados pelo id e o número de filmes na Swapi
     @GetMapping(value = "/{id}")
     ResponseEntity<Planet> findPlanetById(@PathVariable String id) {
-        if (id.isEmpty()) {
-            // throw new MethodArgumentNotValidException(MethodParameter.forParameter());
-        }
         return planetService.findPlanetById(id).map(record -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(record.getName());
             planetsApi.getResults().stream().forEach(pa -> {
-                record.setFilmCount(pa.getFilms().size() + record.getFilmCount());
+                record.setFilmsAppearances(pa.getFilms().size() + record.getFilmsAppearances());
             });
             return ResponseEntity.ok().body(record);
         }).orElse(ResponseEntity.notFound().build());
@@ -60,7 +57,7 @@ public class PlanetController {
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
             planetsApi.getResults().stream().forEach(pa -> {
-                p.setFilmCount(pa.getFilms().size() + p.getFilmCount());
+                p.setFilmsAppearances(pa.getFilms().size() + p.getFilmsAppearances());
             });
         });
         if (!planetList.isEmpty()) {
@@ -81,8 +78,11 @@ public class PlanetController {
     // Deleta um planeta da base de dados
     @DeleteMapping(value = "/{id}")
     public void deletePlanet(@PathVariable String id, HttpServletResponse response) {
-        planetService.deletePlanet(id);
-        response.setStatus((HttpServletResponse.SC_OK));
+       // if (id.equals(planetService.findPlanetById(id))) {
+             planetService.deletePlanet(id);
+            response.setStatus((HttpServletResponse.SC_OK));
+       // } else {
+       //     response.setStatus((HttpServletResponse.SC_NOT_FOUND));
+      //  }
     }
-
 }

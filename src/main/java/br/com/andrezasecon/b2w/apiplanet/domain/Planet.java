@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-@Document(collection = "planets") //nome da collection no banco de dados
+@Document(collection = "planets") //nome da collection no banco MongoDB
 public class Planet implements Serializable {
     public static final long serialVersionUID = 1L;
 
@@ -25,6 +25,7 @@ public class Planet implements Serializable {
     @NotEmpty(message = "Field name cannot be empty")
     private String name;
 
+
     @NotNull(message = "Enter a climate")
     @NotEmpty(message = "Field climate cannot be empty")
     private String climate;
@@ -33,6 +34,6 @@ public class Planet implements Serializable {
     @NotEmpty(message = "Field terrain cannot be empty")
     private String terrain;
 
-    private Integer filmCount = 0;
+    private Integer filmsAppearances = 0;
 
 }

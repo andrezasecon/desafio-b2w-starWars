@@ -1,44 +1,47 @@
 package br.com.andrezasecon.b2w.apiplanet.controller;
 
-import br.com.andrezasecon.b2w.apiplanet.client.ClientFeignSwapi;
-import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;
-import br.com.andrezasecon.b2w.apiplanet.service.PlanetService;
-import br.com.andrezasecon.b2w.apiplanet.service.PlanetServiceImpl;
-import io.restassured.http.ContentType;
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import br.com.andrezasecon.b2w.apiplanet.ApiplanetApplication;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
 
-@WebMvcTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        classes = ApiplanetApplication.class)
+@AutoConfigureMockMvc
 public class PlanetControllerTest {
 
+    private static final String PLANET_URL = "/planetas/find/%s";
     @Autowired
-    private PlanetController planetController;
-    @Mock
-    private PlanetServiceImpl planetService;
+    protected MockMvc mvc;
 
     @BeforeEach
-    public void setup(){
-        RestAssuredMockMvc.standaloneSetup(this.planetController);
+    public void setup() {
+
     }
+
 
     @Test
-    public void mustReturnSuccess_whenFindAllPlanets(){
-        Mockito.when(this.planetService.findAllPlanets()).thenReturn(new ArrayList<>());
-
-        RestAssuredMockMvc.given()
-            .accept(ContentType.JSON)
-            .when ()
-                .get("/planetas")
-            .then()
-                .statusCode(HttpStatus.OK.value());
-
+    public void searchPlanetByName() throws Exception {
+        String planetName = "Tatooine";
+        String urlTemplate = String.format(PLANET_URL, planetName);
+        mvc.perform(
+                MockMvcRequestBuilders.get(urlTemplate))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Tatooine"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].climate").value("arid"));
     }
+
 }

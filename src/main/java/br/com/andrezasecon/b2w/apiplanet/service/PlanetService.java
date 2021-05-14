@@ -1,6 +1,7 @@
 package br.com.andrezasecon.b2w.apiplanet.service;
 
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public interface PlanetService {
     // Inserir um planeta
     Planet insertPlanet(Planet objPlanet);
 
-    // deletar um planeta pelo di
+    // deletar um planeta pelo id
     void deletePlanet(String id);
 
 }

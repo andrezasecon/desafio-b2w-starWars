@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 // Informando ao Spring que essa interface é um cliente Feign
-@FeignClient(name = "swapiplanets", url = "https://swapi.dev/api/")
+@FeignClient(name = "${api.planet.name}", url = "${api.planet.url}")
 public interface ClientFeignSwapi {
 
     // Path com parâmetro de busca fornecido pela Swapi

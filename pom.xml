@@ -51,12 +51,22 @@
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc -->
+    <!-- Test dependencies -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>spring-mock-mvc</artifactId>
             <version>4.3.3</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-netty</artifactId>
+            <version>3.10.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-client-java</artifactId>
+            <version>3.10.8</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

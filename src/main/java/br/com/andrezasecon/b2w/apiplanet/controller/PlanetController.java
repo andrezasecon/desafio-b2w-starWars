@@ -9,6 +9,8 @@ import br.com.andrezasecon.b2w.apiplanet.exceptions.InvalidNameException;
 import br.com.andrezasecon.b2w.apiplanet.exceptions.NotFoundNameException;
 import br.com.andrezasecon.b2w.apiplanet.exceptions.PlanetNotFoundException;
 import br.com.andrezasecon.b2w.apiplanet.service.PlanetService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,15 +25,17 @@ import java.util.List;
 @Validated
 public class PlanetController implements PlanetControllerDoc {
 
+    private static final Logger logger = LoggerFactory.getLogger(PlanetController.class);
+
     @Autowired
     private PlanetService planetService;
 
     @Autowired
     private ClientFeignSwapi clientFeignSwapi;
 
-
     @GetMapping
     public List<Planet> findAll() {
+        logger.info("Initialized findAll");
         List<Planet> planetList = planetService.findAllPlanets();
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
@@ -39,6 +43,7 @@ public class PlanetController implements PlanetControllerDoc {
                     p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
             );
         });
+        logger.info("Finalized findAll");
         return planetList;
     }
 
@@ -49,13 +54,15 @@ public class PlanetController implements PlanetControllerDoc {
         }
         return planetService.findPlanetById(id).map(registry -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(registry.getName());
-            planetsApi.getResults().stream().forEach(pa ->
-                    registry.setFilmsAppearances(pa.getFilms().size() + registry.getFilmsAppearances())
+            planetsApi.getResults().stream().forEach(swapiPlanet ->
+                    registry.setFilmsAppearances(swapiPlanet.getFilms().size() + registry.getFilmsAppearances())
             );
             return ResponseEntity.ok().body(registry);
-        }).orElseThrow(() -> new PlanetNotFoundException(id));
+        }).orElseThrow(() -> {
+            logger.error("Planet id not found");
+            return new PlanetNotFoundException(id);
+        });
     }
-
 
     @GetMapping("/find/{name}")
     public List<Planet> findPlanetByName(@PathVariable String name, HttpServletResponse response) {
@@ -73,6 +80,7 @@ public class PlanetController implements PlanetControllerDoc {
         if (!planetList.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
+            logger.error("Planet name not found");
             throw new NotFoundNameException(name);
         }
         return planetList;
@@ -90,8 +98,8 @@ public class PlanetController implements PlanetControllerDoc {
             planetService.deletePlanet(id);
             response.setStatus((HttpServletResponse.SC_OK));
         } else {
+            logger.error("Invalid Id");
             throw new InvalidIdException();
         }
     }
-
 }

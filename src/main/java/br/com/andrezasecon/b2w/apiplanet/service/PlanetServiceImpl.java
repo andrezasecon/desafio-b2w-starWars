@@ -1,6 +1,7 @@
 package br.com.andrezasecon.b2w.apiplanet.service;
 
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
+import br.com.andrezasecon.b2w.apiplanet.exceptions.AlreadyExistException;
 import br.com.andrezasecon.b2w.apiplanet.repository.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,16 @@ public class PlanetServiceImpl implements PlanetService {
 
     @Override
     public Planet insertPlanet(Planet objPlanet) {
-        return planetRepository.insert(objPlanet);
+        List<Planet> planetList = planetRepository.findByNameIgnoreCase(objPlanet.getName());
+        if (planetList.isEmpty()) {
+            return planetRepository.insert(objPlanet);
+        } else {
+            throw new AlreadyExistException(objPlanet.getName());
+        }
     }
 
     @Override
     public void deletePlanet(String id) {
         planetRepository.deleteById(id);
     }
-
-
 }

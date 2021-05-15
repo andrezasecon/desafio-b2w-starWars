@@ -1,6 +1,6 @@
 
 
-![](/home/andrezasecon/Pictures/unnamed.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/swapi.png)
 
 
 
@@ -56,21 +56,42 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 \- Postman e JUNIT
 
+- Swagger
+
 
 
 ### **Como executar o projeto:**
 
-Clonar o projeto
+Criar um pasta para o projeto, abrir o terminal nesta pasta e clonar o projeto
 
 ```
 git clone https://github.com/andrezasecon/desafio-b2w-starWars.git
 ```
 
-Acessar a pasta /devops/mongodb e executar o comando para subir a docker com mongoDB:
+
+
+Abrir a pasta do projeto na IDE de sua preferência.
+
+Para o banco de dados, utilizaremos uma docker, tenha instalado em seu ambiente o Docker Compose (https://docs.docker.com/compose/install/). Pelo terminal, acessar a pasta /devops/mongodb na raiz do projeto e executar o comando abaixo para subir a docker 
 
 ```
 docker-compose up
 ```
+
+Para verificar se a docker esta no ar, execute o comando abaixo
+
+```
+docker ps
+```
+
+Se tudo estiver ok as informações da docker serão exibidas
+
+```
+CONTAINER ID   IMAGE          COMMAND                  CREATED      STATUS      PORTS                                           NAMES
+574ca0ea3a08   mongo:latest   "docker-entrypoint.s…"   8 days ago   Up 6 days   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp   mongodb_mongodb_container_1
+```
+
+Agora basta dar um Run na classe ApiPlanetApplication e utilizar o Postman para acessar os endpoints da aplicação.
 
 
 

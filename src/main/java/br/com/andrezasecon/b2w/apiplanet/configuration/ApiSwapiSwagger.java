@@ -33,10 +33,10 @@ public class ApiSwapiSwagger {
                 "API Rest para busca de planetas, consumindo a SWAPI para buscar número de aparições" +
                         " em filmes para cada planeta",
                 "1.0",
-                "Terms of Service",
+                " ",
                 new Contact("Andreza Secon", "https://www.linkedin.com/in/andreza-secon-b5736788/",
                         "andrezasecon@gmail.com"),
-                "License of API", "API license URL", Collections.emptyList());
+                " ", " ", Collections.emptyList());
 
     }
 }

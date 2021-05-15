@@ -28,7 +28,7 @@ public class ControllerAdviceExceptions {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<Object> handleValidationExceptions(
             MethodArgumentNotValidException ex) {

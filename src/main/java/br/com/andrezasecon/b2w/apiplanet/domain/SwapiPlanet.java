@@ -16,13 +16,13 @@ public class SwapiPlanet {
 
 
     private String name;
-    private String rotation_period;
-    private String orbital_period;
+    private String rotationPeriod;
+    private String orbitalPeriod;
     private String diameter;
     private String climate;
     private String gravity;
     private String terrain;
-    private String surface_water;
+    private String surfaceWater;
     private String population;
     private List<String> residents;
     private List<String> films;

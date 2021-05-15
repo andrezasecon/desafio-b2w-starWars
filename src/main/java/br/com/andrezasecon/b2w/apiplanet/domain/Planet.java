@@ -1,5 +1,6 @@
 package br.com.andrezasecon.b2w.apiplanet.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Planet implements Serializable {
     @NotEmpty(message = "Field terrain cannot be empty")
     private String terrain;
 
-    private Integer filmsAppearances = 0;
+
+    private Integer filmsAppearances;
 
 }

@@ -2,14 +2,13 @@ package br.com.andrezasecon.b2w.apiplanet.controller;
 
 import br.com.andrezasecon.b2w.apiplanet.client.ClientFeignSwapi;
 import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;
+import br.com.andrezasecon.b2w.apiplanet.controller.doc.PlanetControllerDoc;
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
 import br.com.andrezasecon.b2w.apiplanet.exceptions.InvalidIdException;
 import br.com.andrezasecon.b2w.apiplanet.exceptions.InvalidNameException;
 import br.com.andrezasecon.b2w.apiplanet.exceptions.NotFoundNameException;
 import br.com.andrezasecon.b2w.apiplanet.exceptions.PlanetNotFoundException;
 import br.com.andrezasecon.b2w.apiplanet.service.PlanetService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,9 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api")
 @Validated
-@Api(value = "API  REST Planetas")
-@CrossOrigin(origins = "*")
-public class PlanetController {
+public class PlanetController implements PlanetControllerDoc {
 
     @Autowired
     private PlanetService planetService;
@@ -34,7 +31,6 @@ public class PlanetController {
 
 
     @GetMapping
-    @ApiOperation(value = "Retorna uma lista de planetas")
     public List<Planet> findAll() {
         List<Planet> planetList = planetService.findAllPlanets();
         planetList.stream().forEach(p -> {
@@ -47,8 +43,6 @@ public class PlanetController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Retorna um único planeta por id")
-
     public ResponseEntity<Planet> findPlanetById(@PathVariable String id) {
         if (id.isBlank()) {
             throw new InvalidIdException();
@@ -64,7 +58,6 @@ public class PlanetController {
 
 
     @GetMapping("/find/{name}")
-    @ApiOperation(value = "Retorna uma único planeta por nome")
     public List<Planet> findPlanetByName(@PathVariable String name, HttpServletResponse response) {
         if (name.isBlank()) {
             throw new InvalidNameException();
@@ -73,7 +66,7 @@ public class PlanetController {
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
             planetsApi.getResults().stream().forEach(swapiPlanet ->
-                p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
+                    p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
             );
 
         });
@@ -85,15 +78,13 @@ public class PlanetController {
         return planetList;
     }
 
-    @PostMapping("/{id}")
-    @ApiOperation(value = "Insere um planeta")
+    @PostMapping
     public void insertPlanet(@RequestBody @Valid Planet objPlanet, HttpServletResponse response) {
         planetService.insertPlanet(objPlanet);
         response.setStatus(HttpServletResponse.SC_CREATED);
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "Deleta um produto")
     public void deletePlanet(@PathVariable String id, HttpServletResponse response) {
         if (!id.isBlank()) {
             planetService.deletePlanet(id);

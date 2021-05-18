@@ -1,26 +1,36 @@
-package br.com.andrezasecon.b2w.apiplanet.domain;
+package br.com.andrezasecon.b2w.apiplanet.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
 
-import java.io.Serializable;
-import java.util.Objects;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Document(collection = "planets") //nome da collection no banco MongoDB
-public class Planet implements Serializable {
-    public static final long serialVersionUID = 1L;
+public class PlanetDTO {
 
-    @Id
     private String id;
+    @NotNull(message = "Enter a planet name")
+    @NotEmpty(message = "Field name cannot be empty")
     private String name;
+    @NotNull(message = "Enter a Climate")
+    @NotEmpty(message = "Field Climate cannot be empty")
     private String climate;
+    @NotNull(message = "Enter a terrain")
+    @NotEmpty(message = "Field terrain cannot be empty")
     private String terrain;
-    private Integer filmsAppearances=0;
+    private Integer filmsAppearances = 0;
 
-    public Planet() {
+    public PlanetDTO() {
     }
 
-    public Planet(String id, String name, String climate, String terrain, Integer filmsAppearances) {
+    public PlanetDTO(Planet planet) {
+        this.id = planet.getId();
+        this.name = planet.getName();
+        this.climate = planet.getClimate();
+        this.terrain = planet.getTerrain();
+        this.filmsAppearances = planet.getFilmsAppearances();
+    }
+
+    public PlanetDTO(String id, String name, String climate, String terrain, Integer filmsAppearances) {
         this.id = id;
         this.name = name;
         this.climate = climate;
@@ -66,18 +76,5 @@ public class Planet implements Serializable {
 
     public void setFilmsAppearances(Integer filmsAppearances) {
         this.filmsAppearances = filmsAppearances;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Planet planet = (Planet) o;
-        return Objects.equals(id, planet.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

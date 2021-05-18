@@ -3,11 +3,7 @@ package br.com.andrezasecon.b2w.apiplanet.controller;
 import br.com.andrezasecon.b2w.apiplanet.client.ClientFeignSwapi;
 import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;
 import br.com.andrezasecon.b2w.apiplanet.controller.doc.PlanetControllerDoc;
-import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
-import br.com.andrezasecon.b2w.apiplanet.exceptions.InvalidIdException;
-import br.com.andrezasecon.b2w.apiplanet.exceptions.InvalidNameException;
-import br.com.andrezasecon.b2w.apiplanet.exceptions.NotFoundNameException;
-import br.com.andrezasecon.b2w.apiplanet.exceptions.PlanetNotFoundException;
+import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 import br.com.andrezasecon.b2w.apiplanet.service.PlanetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -34,9 +31,9 @@ public class PlanetController implements PlanetControllerDoc {
     private ClientFeignSwapi clientFeignSwapi;
 
     @GetMapping
-    public List<Planet> findAll() {
+    public ResponseEntity<List<PlanetDTO>> findAllPlanets() {
         logger.info("Initialized findAll");
-        List<Planet> planetList = planetService.findAllPlanets();
+        List<PlanetDTO> planetList = planetService.findAllPlanets();
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
             planetsApi.getResults().stream().forEach(swapiPlanet ->
@@ -44,62 +41,42 @@ public class PlanetController implements PlanetControllerDoc {
             );
         });
         logger.info("Finalized findAll");
-        return planetList;
+        return ResponseEntity.ok().body(planetList);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Planet> findPlanetById(@PathVariable String id) {
-        if (id.isBlank()) {
-            throw new InvalidIdException();
-        }
-        return planetService.findPlanetById(id).map(registry -> {
-            PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(registry.getName());
-            planetsApi.getResults().stream().forEach(swapiPlanet ->
-                    registry.setFilmsAppearances(swapiPlanet.getFilms().size() + registry.getFilmsAppearances())
-            );
-            return ResponseEntity.ok().body(registry);
-        }).orElseThrow(() -> {
-            logger.error("Planet id not found");
-            return new PlanetNotFoundException(id);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PlanetDTO> findPlanetById(@PathVariable String id) {
+        PlanetDTO pdto = planetService.findPlanetById(id);
+        PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(pdto.getName());
+        planetsApi.getResults().stream().forEach(pa -> {
+            pdto.setFilmsAppearances(pa.getFilms().size() + pdto.getFilmsAppearances());
         });
+        return ResponseEntity.ok().body(pdto);
     }
 
-    @GetMapping("/find/{name}")
-    public List<Planet> findPlanetByName(@PathVariable String name, HttpServletResponse response) {
-        if (name.isBlank()) {
-            throw new InvalidNameException();
-        }
-        List<Planet> planetList = planetService.findByNameIgnoreCase(name);
+    @GetMapping(value = "/find/{name}")
+    public ResponseEntity<List<PlanetDTO>> findPlanetByName(@PathVariable String name) {
+        List<PlanetDTO> planetList = planetService.findByNameIgnoreCase(name);
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
             planetsApi.getResults().stream().forEach(swapiPlanet ->
                     p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
             );
-
         });
-        if (!planetList.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            logger.error("Planet name not found");
-            throw new NotFoundNameException(name);
-        }
-        return planetList;
+        return ResponseEntity.ok().body(planetList);
     }
 
     @PostMapping
-    public void insertPlanet(@RequestBody @Valid Planet objPlanet, HttpServletResponse response) {
-        planetService.insertPlanet(objPlanet);
-        response.setStatus(HttpServletResponse.SC_CREATED);
+    public ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO pdto) {
+        pdto = planetService.insertPlanet(pdto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+                .buildAndExpand(pdto.getId()).toUri();
+        return ResponseEntity.created(uri).body(pdto);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePlanet(@PathVariable String id, HttpServletResponse response) {
-        if (!id.isBlank()) {
-            planetService.deletePlanet(id);
-            response.setStatus((HttpServletResponse.SC_OK));
-        } else {
-            logger.error("Invalid Id");
-            throw new InvalidIdException();
-        }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<PlanetDTO> deletePlanet(@PathVariable String id) {
+        planetService.deletePlanet(id);
+        return ResponseEntity.noContent().build();
     }
 }

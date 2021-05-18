@@ -1,6 +1,7 @@
 package br.com.andrezasecon.b2w.apiplanet.controller.doc;
 
 import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
+import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ public interface PlanetControllerDoc {
             @ApiResponse(code = 404, message = "Resource Not Found."),
             @ApiResponse(code = 400, message = "Bad request.")
     })
-    List<Planet> findAll();
+    ResponseEntity<List<PlanetDTO>> findAllPlanets();
 
     @ApiOperation(value = "Planet by id")
     @ApiResponses(value = {
@@ -29,7 +30,7 @@ public interface PlanetControllerDoc {
             @ApiResponse(code = 404, message = "Resource Not Found.")
 
     })
-    ResponseEntity<Planet> findPlanetById(
+    ResponseEntity<PlanetDTO> findPlanetById(
             @ApiParam(value = "Id of planet", required = true, example = "11")
             @PathVariable String id);
 
@@ -39,18 +40,17 @@ public interface PlanetControllerDoc {
             @ApiResponse(code = 400, message = "Bad request."),
             @ApiResponse(code = 404, message = "Resource Not Found.")
     })
-    List<Planet> findPlanetByName(
+    ResponseEntity<List<PlanetDTO>>  findPlanetByName(
             @ApiParam(value = "Name of planet", required = true, example = "Tatooine")
-            @PathVariable String name, HttpServletResponse response);
-
+            @PathVariable String name);
 
     @ApiOperation(value = "Insert planet")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Planet created successfully."),
             @ApiResponse(code = 400, message = "Bad request.")
     })
-    void insertPlanet(@RequestBody @Valid Planet objPlanet, HttpServletResponse response);
 
+    ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO objPlanet);
 
     @ApiOperation(value = "Delete planet")
     @ApiResponses(value = {
@@ -58,8 +58,8 @@ public interface PlanetControllerDoc {
             @ApiResponse(code = 400, message = "Bad request."),
             @ApiResponse(code = 404, message = "Resource Not Found.")
     })
-    public void deletePlanet(
+    ResponseEntity<PlanetDTO> deletePlanet(
             @ApiParam(value = "Id of planet", required = true, example = "11")
-            @PathVariable String id, HttpServletResponse response);
+            @PathVariable String id);
 
 }

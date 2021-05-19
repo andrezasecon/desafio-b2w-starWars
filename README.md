@@ -70,6 +70,14 @@ git clone https://github.com/andrezasecon/desafio-b2w-starWars.git
 
 Abrir a pasta do projeto na IDE de sua preferência.
 
+Configurar a VM Options para local
+
+```
+-Dspring.profiles.active=local
+```
+
+
+
 Para o banco de dados, utilizaremos uma docker, tenha instalado em seu ambiente o Docker Compose (https://docs.docker.com/compose/install/). Pelo terminal, acessar a pasta /devops/mongodb na raiz do projeto e executar o comando abaixo para subir a docker 
 
 ```

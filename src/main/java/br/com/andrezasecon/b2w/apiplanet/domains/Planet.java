@@ -1,6 +1,7 @@
-package br.com.andrezasecon.b2w.apiplanet.domain;
+package br.com.andrezasecon.b2w.apiplanet.domains;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;

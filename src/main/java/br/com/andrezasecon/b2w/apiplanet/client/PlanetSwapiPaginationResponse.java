@@ -1,6 +1,6 @@
 package br.com.andrezasecon.b2w.apiplanet.client;
 
-import br.com.andrezasecon.b2w.apiplanet.domain.SwapiPlanet;
+import br.com.andrezasecon.b2w.apiplanet.domains.SwapiPlanet;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;

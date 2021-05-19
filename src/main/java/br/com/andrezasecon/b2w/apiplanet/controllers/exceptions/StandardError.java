@@ -1,4 +1,4 @@
-package br.com.andrezasecon.b2w.apiplanet.controller.exceptions;
+package br.com.andrezasecon.b2w.apiplanet.controllers.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;

@@ -1,11 +1,12 @@
 package br.com.andrezasecon.b2w.apiplanet.dto;
 
-import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
+import br.com.andrezasecon.b2w.apiplanet.domains.Planet;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class PlanetDTO {
+
 
     private String id;
     @NotNull(message = "Enter a planet name")

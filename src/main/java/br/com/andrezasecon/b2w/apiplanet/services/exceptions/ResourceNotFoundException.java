@@ -1,4 +1,4 @@
-package br.com.andrezasecon.b2w.apiplanet.service.exceptions;
+package br.com.andrezasecon.b2w.apiplanet.services.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
     private static final long serialVersionUID = 1L;

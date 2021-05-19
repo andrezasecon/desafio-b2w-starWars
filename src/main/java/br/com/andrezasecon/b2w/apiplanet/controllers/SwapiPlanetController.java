@@ -1,4 +1,4 @@
-package br.com.andrezasecon.b2w.apiplanet.controller;
+package br.com.andrezasecon.b2w.apiplanet.controllers;
 
 import br.com.andrezasecon.b2w.apiplanet.client.ClientFeignSwapi;
 import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;

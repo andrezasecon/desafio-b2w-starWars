@@ -1,10 +1,8 @@
-package br.com.andrezasecon.b2w.apiplanet.service;
+package br.com.andrezasecon.b2w.apiplanet.services;
 
-import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PlanetService {
 
@@ -22,5 +20,7 @@ public interface PlanetService {
 
     // deletar um planeta pelo id
     void deletePlanet(String id);
+
+
 
 }

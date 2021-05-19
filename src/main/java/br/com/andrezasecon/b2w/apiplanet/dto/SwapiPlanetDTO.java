@@ -1,6 +1,6 @@
 package br.com.andrezasecon.b2w.apiplanet.dto;
 
-import br.com.andrezasecon.b2w.apiplanet.domain.SwapiPlanet;
+import br.com.andrezasecon.b2w.apiplanet.domains.SwapiPlanet;
 
 import java.util.List;
 

@@ -60,6 +60,7 @@ public class PlanetControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Tatooine"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].climate").value("arid"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].terrain").value("desert"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].filmsAppearances").value("6"));
     }
 

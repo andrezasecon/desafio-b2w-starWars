@@ -2,7 +2,7 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
-    <springProfile name="dev">
+    <springProfile name="local">
         <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
         <root level="INFO">
@@ -10,7 +10,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="local">
+    <springProfile name="dev">
 
         <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>logs/api.log</file>

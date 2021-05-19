@@ -1,13 +1,11 @@
-package br.com.andrezasecon.b2w.apiplanet.controller.doc;
+package br.com.andrezasecon.b2w.apiplanet.controllers.doc;
 
-import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -47,16 +45,16 @@ public interface PlanetControllerDoc {
     @ApiOperation(value = "Insert planet")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Planet created successfully."),
-            @ApiResponse(code = 400, message = "Bad request.")
+            @ApiResponse(code = 400, message = "Bad request."),
+            @ApiResponse(code = 409, message = "Conflict.")
     })
-
     ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO objPlanet);
 
     @ApiOperation(value = "Delete planet")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Planet deleted successfully."),
             @ApiResponse(code = 400, message = "Bad request."),
-            @ApiResponse(code = 404, message = "Resource Not Found.")
+            @ApiResponse(code = 409, message = "Conflict.")
     })
     ResponseEntity<PlanetDTO> deletePlanet(
             @ApiParam(value = "Id of planet", required = true, example = "11")

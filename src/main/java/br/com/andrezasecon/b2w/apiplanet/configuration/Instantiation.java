@@ -1,8 +1,8 @@
 package br.com.andrezasecon.b2w.apiplanet.configuration;
 
 
-import br.com.andrezasecon.b2w.apiplanet.domain.Planet;
-import br.com.andrezasecon.b2w.apiplanet.repository.PlanetRepository;
+import br.com.andrezasecon.b2w.apiplanet.domains.Planet;
+import br.com.andrezasecon.b2w.apiplanet.repositories.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;

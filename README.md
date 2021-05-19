@@ -56,9 +56,7 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 \- Postman e JUNIT
 
-- Swagger
-
-
+\- Swagger
 
 ### **Como executar o projeto:**
 
@@ -101,21 +99,119 @@ Agora basta dar um Run na classe ApiPlanetApplication e utilizar o Postman para 
 
 #### Inserir um planeta
 
+```
+http://localhost:8080/api
+```
+
+No postman, na aba Body, clicar em raw e setar o tipo para JSON, os dados devem ser inseridos no formato Json
+
+```
+{
+    "name": "Teste",
+    "climate": "arid",
+    "terrain": "Montain"
+}
+```
+
+Retorno da consulta esperado com status 201 Created
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/insert.png)
+
+
+
+Retorno esperado caso o planeta já exista na base com status 409 Conflict
+
+```
+{
+    "name": "Teste",
+    "climate": "arid",
+    "terrain": "Montain"
+}
+```
+
+
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/insertconflict.png)
+
 
 
 #### Listar todos os planetas
 
+```
+http://localhost:8080/api
+```
+
+Retorno esperado com status 200 ok
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findAll.png)
 
 
-#### Buscar um planeta pelo id
+
+#### Buscar um planeta pelo id (GET)
+
+```
+http://localhost:8080/api/60a45703ab3d262026fdfcce
+```
+
+Retorno esperado com status 200 ok
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findbyid.png)
+
+
+
+Retorno esperado em caso de id inválido 404 Not Found
+
+```
+http://localhost:8080/api/60a45703ab3d262026fd
+```
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findbyiderror.png)
 
 
 
 #### Buscar um planeta pelo nome
 
+```
+http://localhost:8080/api/find/tatooine
+```
+
+Retorno esperado com status 200 ok
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findByName.png)
+
+
+
+Retorno esperado para nome inválido com status 204 Not Found
+
+```
+http://localhost:8080/api/find/tatooi
+```
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findbynameerror.png)
+
 
 
 #### Deletar um planeta pelo id
+
+```
+http://localhost:8080/api/
+```
+
+Retorno esperado com status 204 Not Found
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/delete.png)
+
+
+
+Retorno esperado caso o id não exista na base com status 404 Not Found
+
+```
+http://localhost:8080/api/60a47391802bdf5d4fc
+```
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/deleteerror.png)
+
+#### 
 
 
 

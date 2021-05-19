@@ -1,4 +1,4 @@
-package br.com.andrezasecon.b2w.apiplanet.domain;
+package br.com.andrezasecon.b2w.apiplanet.domains;
 
 
 import java.util.List;

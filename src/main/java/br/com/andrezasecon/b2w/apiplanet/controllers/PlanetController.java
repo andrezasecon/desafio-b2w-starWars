@@ -1,10 +1,10 @@
-package br.com.andrezasecon.b2w.apiplanet.controller;
+package br.com.andrezasecon.b2w.apiplanet.controllers;
 
 import br.com.andrezasecon.b2w.apiplanet.client.ClientFeignSwapi;
 import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;
-import br.com.andrezasecon.b2w.apiplanet.controller.doc.PlanetControllerDoc;
+import br.com.andrezasecon.b2w.apiplanet.controllers.doc.PlanetControllerDoc;
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
-import br.com.andrezasecon.b2w.apiplanet.service.PlanetService;
+import br.com.andrezasecon.b2w.apiplanet.services.PlanetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,6 @@ public class PlanetController implements PlanetControllerDoc {
 
     @GetMapping
     public ResponseEntity<List<PlanetDTO>> findAllPlanets() {
-        logger.info("Initialized findAll");
         List<PlanetDTO> planetList = planetService.findAllPlanets();
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
@@ -40,7 +39,6 @@ public class PlanetController implements PlanetControllerDoc {
                     p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
             );
         });
-        logger.info("Finalized findAll");
         return ResponseEntity.ok().body(planetList);
     }
 

@@ -1,8 +1,8 @@
-package br.com.andrezasecon.b2w.apiplanet.controller.exceptions;
+package br.com.andrezasecon.b2w.apiplanet.controllers.exceptions;
 
 
-import br.com.andrezasecon.b2w.apiplanet.service.exceptions.DataBaseException;
-import br.com.andrezasecon.b2w.apiplanet.service.exceptions.ResourceNotFoundException;
+import br.com.andrezasecon.b2w.apiplanet.services.exceptions.ResourceAlreadyExistException;
+import br.com.andrezasecon.b2w.apiplanet.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,7 +15,7 @@ import java.time.Instant;
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError err = new StandardError();
         err.setTimestamp(Instant.now());
@@ -26,13 +26,13 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(DataBaseException.class)
-    public ResponseEntity<StandardError> dataBase(DataBaseException e, HttpServletRequest request){
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+    @ExceptionHandler(ResourceAlreadyExistException.class)
+    public ResponseEntity<StandardError> dataBase(ResourceAlreadyExistException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
         StandardError err = new StandardError();
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
-        err.setError("DataBase Exception");
+        err.setError("Resource conflict");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);

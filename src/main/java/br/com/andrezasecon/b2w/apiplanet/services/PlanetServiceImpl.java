@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,23 +24,25 @@ public class PlanetServiceImpl implements PlanetService {
     @Override
     public List<PlanetDTO> findAllPlanets() {
         List<Planet> list = planetRepository.findAll();
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             logger.info("Planets not found");
             throw new ResourceNotFoundException("Planets not found");
-        }else {
+        } else {
             logger.info("Planets found");
             return list.stream().map(x -> new PlanetDTO(x)).collect(Collectors.toList());
         }
     }
 
     @Override
-    public PlanetDTO findPlanetById(String id) {
-        Optional<Planet> obj = planetRepository.findById(id);
-        Planet plan = obj.orElseThrow(() -> {
+    public List<PlanetDTO> findPlanetById(Long idPlanet) {
+        List<Planet> list = planetRepository.findPlanetByIdPlanet(idPlanet);
+        if (list.isEmpty()) {
             logger.info("Planet id not found");
-              return   new ResourceNotFoundException("Planet id " + id + " not found");});
-        logger.info("Planet id found");
-        return new PlanetDTO(plan);
+            throw new ResourceNotFoundException("Planet id " + idPlanet + " not found");
+        } else {
+            logger.info("Planet id found");
+            return list.stream().map(x -> new PlanetDTO(x)).collect(Collectors.toList());
+        }
     }
 
     @Override
@@ -59,27 +60,30 @@ public class PlanetServiceImpl implements PlanetService {
     @Override
     public PlanetDTO insertPlanet(PlanetDTO objPlanet) {
         List<Planet> exist = planetRepository.findByNameIgnoreCase(objPlanet.getName());
-        if(!exist.isEmpty()){
+        if (!exist.isEmpty()) {
             logger.info("Planet already exist");
             throw new ResourceAlreadyExistException("Planet Already exist");
         }
         Planet entity = new Planet();
-            entity.setName(objPlanet.getName());
-            entity.setClimate(objPlanet.getClimate());
-            entity.setTerrain(objPlanet.getTerrain());
-            entity = planetRepository.save(entity);
-            logger.info("Planet inserted");
-            return new PlanetDTO(entity);
+        entity.setName(objPlanet.getName());
+        entity.setClimate(objPlanet.getClimate());
+        entity.setTerrain(objPlanet.getTerrain());
+        entity = planetRepository.save(entity);
+        logger.info("Planet inserted");
+        return new PlanetDTO(entity);
     }
 
     @Override
-    public void deletePlanet(String id) {
-        Optional<Planet> obj = planetRepository.findById(id);
-        if(obj.isPresent()) {
-            logger.info("Planet deleted");
-            planetRepository.deleteById(id);
+    public void deletePlanet(Long idPlanet) {
+        List<Planet> list = planetRepository.findPlanetByIdPlanet(idPlanet);
 
-        }else {
+        if (!list.isEmpty()) {
+            logger.info("Planet deleted");
+            list.forEach(x->{
+                planetRepository.deleteById(x.getId());
+            });
+
+        } else {
             logger.info("Planet id dont exist");
             throw new ResourceNotFoundException("Planet id dont exist");
         }

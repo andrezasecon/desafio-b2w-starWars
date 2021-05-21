@@ -1,8 +1,10 @@
 package br.com.andrezasecon.b2w.apiplanet.domains;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,17 +13,38 @@ import java.util.Objects;
 public class Planet implements Serializable {
     public static final long serialVersionUID = 1L;
 
+    @Transient
+    public static final String SEQUENCE_NAME = "planet_sequence";
+
+    @Indexed
+    @Field("idPlanet")
+    private long idPlanet;
+
     @Id
     private String id;
     private String name;
     private String climate;
     private String terrain;
-    private Integer filmsAppearances=0;
+    private Integer filmsAppearances = 0;
 
     public Planet() {
     }
 
-    public Planet(String id, String name, String climate, String terrain, Integer filmsAppearances) {
+    public Planet(String name, String climate, String terrain) {
+        this.name = name;
+        this.climate = climate;
+        this.terrain = terrain;
+    }
+
+    public Planet(long idPlanet, String name, String climate, String terrain) {
+        this.idPlanet = idPlanet;
+        this.name = name;
+        this.climate = climate;
+        this.terrain = terrain;
+    }
+
+    public Planet(Long idPlanet, String id, String name, String climate, String terrain, Integer filmsAppearances) {
+        this.idPlanet = idPlanet;
         this.id = id;
         this.name = name;
         this.climate = climate;
@@ -29,13 +52,15 @@ public class Planet implements Serializable {
         this.filmsAppearances = filmsAppearances;
     }
 
-    public String getId() {
-        return id;
+    public long getIdPlanet() {
+        return idPlanet;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdPlanet(long idPlanet) {
+        this.idPlanet = idPlanet;
     }
+
+    public String getId(){return  this.id;}
 
     public String getName() {
         return name;
@@ -63,10 +88,6 @@ public class Planet implements Serializable {
 
     public Integer getFilmsAppearances() {
         return filmsAppearances;
-    }
-
-    public void setFilmsAppearances(Integer filmsAppearances) {
-        this.filmsAppearances = filmsAppearances;
     }
 
     @Override

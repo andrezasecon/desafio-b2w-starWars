@@ -105,7 +105,7 @@ Agora basta dar um Run na classe ApiPlanetApplication e utilizar o Postman para 
 
 
 
-#### Inserir um planeta
+#### Inserir um planeta (POST)
 
 ```
 http://localhost:8080/api
@@ -143,7 +143,7 @@ Retorno esperado caso o planeta já exista na base com status 409 Conflict
 
 
 
-#### Listar todos os planetas
+#### Listar todos os planetas (GET)
 
 ```
 http://localhost:8080/api
@@ -177,7 +177,7 @@ http://localhost:8080/api/60a45703ab3d262026fd
 
 
 
-#### Buscar um planeta pelo nome
+#### Buscar um planeta pelo nome (GET)
 
 ```
 http://localhost:8080/api/find/tatooine
@@ -199,7 +199,7 @@ http://localhost:8080/api/find/tatooi
 
 
 
-#### Deletar um planeta pelo id
+#### Deletar um planeta pelo id (DELETE)
 
 ```
 http://localhost:8080/api/

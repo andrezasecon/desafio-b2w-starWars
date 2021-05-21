@@ -28,9 +28,9 @@ public interface PlanetControllerDoc {
             @ApiResponse(code = 404, message = "Resource Not Found.")
 
     })
-    ResponseEntity<PlanetDTO> findPlanetById(
-            @ApiParam(value = "Id of planet", required = true, example = "11")
-            @PathVariable String id);
+    ResponseEntity<List<PlanetDTO>> findPlanetById(
+            @ApiParam(value = "Id of planet", required = true, example = "1")
+            @PathVariable Long id);
 
     @ApiOperation(value = "Planet by name")
     @ApiResponses(value = {
@@ -57,7 +57,7 @@ public interface PlanetControllerDoc {
             @ApiResponse(code = 409, message = "Conflict.")
     })
     ResponseEntity<PlanetDTO> deletePlanet(
-            @ApiParam(value = "Id of planet", required = true, example = "11")
-            @PathVariable String id);
+            @ApiParam(value = "Id of planet", required = true, example = "1")
+            @PathVariable Long id);
 
 }

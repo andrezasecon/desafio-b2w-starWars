@@ -1,13 +1,15 @@
 package br.com.andrezasecon.b2w.apiplanet.dto;
 
 import br.com.andrezasecon.b2w.apiplanet.domains.Planet;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class PlanetDTO {
 
-
+    @Indexed
+    private long idPlanet;
     private String id;
     @NotNull(message = "Enter a planet name")
     @NotEmpty(message = "Field name cannot be empty")
@@ -24,27 +26,27 @@ public class PlanetDTO {
     }
 
     public PlanetDTO(Planet planet) {
-        this.id = planet.getId();
+        this.idPlanet = planet.getIdPlanet();
         this.name = planet.getName();
         this.climate = planet.getClimate();
         this.terrain = planet.getTerrain();
         this.filmsAppearances = planet.getFilmsAppearances();
     }
 
-    public PlanetDTO(String id, String name, String climate, String terrain, Integer filmsAppearances) {
-        this.id = id;
+    public PlanetDTO(Long idPlanet, String name, String climate, String terrain, Integer filmsAppearances) {
+        this.idPlanet = idPlanet;
         this.name = name;
         this.climate = climate;
         this.terrain = terrain;
         this.filmsAppearances = filmsAppearances;
     }
 
-    public String getId() {
-        return id;
+    public long getIdPlanet() {
+        return idPlanet;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdPlanet(long idPlanet) {
+        this.idPlanet = idPlanet;
     }
 
     public String getName() {

@@ -43,13 +43,15 @@ public class PlanetController implements PlanetControllerDoc {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PlanetDTO> findPlanetById(@PathVariable String id) {
-        PlanetDTO pdto = planetService.findPlanetById(id);
-        PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(pdto.getName());
-        planetsApi.getResults().stream().forEach(pa -> {
-            pdto.setFilmsAppearances(pa.getFilms().size() + pdto.getFilmsAppearances());
+    public ResponseEntity<List<PlanetDTO>> findPlanetById(@PathVariable Long id) {
+        List<PlanetDTO> planetList = planetService.findPlanetById(id);
+        planetList.stream().forEach(p -> {
+            PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
+            planetsApi.getResults().stream().forEach(swapiPlanet ->
+                    p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
+            );
         });
-        return ResponseEntity.ok().body(pdto);
+        return ResponseEntity.ok().body(planetList);
     }
 
     @GetMapping(value = "/find/{name}")
@@ -68,12 +70,12 @@ public class PlanetController implements PlanetControllerDoc {
     public ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO pdto) {
         pdto = planetService.insertPlanet(pdto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(pdto.getId()).toUri();
+                .buildAndExpand(pdto.getIdPlanet()).toUri();
         return ResponseEntity.created(uri).body(pdto);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<PlanetDTO> deletePlanet(@PathVariable String id) {
+    public ResponseEntity<PlanetDTO> deletePlanet(@PathVariable Long id) {
         planetService.deletePlanet(id);
         return ResponseEntity.noContent().build();
     }

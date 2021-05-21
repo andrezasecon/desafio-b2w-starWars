@@ -3,33 +3,43 @@ package br.com.andrezasecon.b2w.apiplanet.configuration;
 
 import br.com.andrezasecon.b2w.apiplanet.domains.Planet;
 import br.com.andrezasecon.b2w.apiplanet.repositories.PlanetRepository;
+import br.com.andrezasecon.b2w.apiplanet.services.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 
-@Configuration
+//@Configuration
+//@Profile("!test")
 public class Instantiation implements CommandLineRunner {
 
     @Autowired
     private PlanetRepository planetRepository;
+
+    @Autowired
+    private SequenceGeneratorService generatorService;
 
     @Override
     public void run(String... args) throws Exception {
 
         planetRepository.deleteAll();
 
-        Planet tatooine = new Planet(null, "Tatooine", "arid", "desert", 0);
-        Planet alderaan = new Planet(null, "Alderaan", "temperate", "grasslands, mountains", 0);
-        Planet yavin = new Planet(null, "Yavin IV", "temperate, tropical", "jungle, rainforests", 0);
-        Planet hoth = new Planet(null, "Hoth", "frozen", "tundra, ice caves, mountain ranges", 0);
-        Planet degobah = new Planet(null, "Dagobah", "murky", "swamp, jungles", 0);
-        Planet bespin = new Planet(null, "Bespin", "temperate", "gas giant", 0);
-        Planet endor = new Planet(null, "Endor", "temperate", "forests, mountains, lakes", 0);
-        Planet naboo = new Planet(null, "Naboo", "temperate", "grassy hills, swamps, forests, mountains", 0);
-        Planet coruscant = new Planet(null, "Coruscant", "temperate", "cityscape, mountains", 0);
-        Planet kamino = new Planet(null, "Kamino", "temperate", "ocean", 0);
+        generatorService.deleteSequence();
+
+
+
+        Planet tatooine = new Planet("Tatooine", "arid", "desert");
+        Planet alderaan = new Planet("Alderaan", "temperate", "grasslands, mountains");
+        Planet yavin = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
+        Planet hoth = new Planet("Hoth", "frozen", "tundra, ice caves, mountain ranges");
+        Planet degobah = new Planet("Dagobah", "murky", "swamp, jungles");
+        Planet bespin = new Planet("Bespin", "temperate", "gas giant");
+        Planet endor = new Planet("Endor", "temperate", "forests, mountains, lakes");
+        Planet naboo = new Planet("Naboo", "temperate", "grassy hills, swamps, forests, mountains");
+        Planet coruscant = new Planet("Coruscant", "temperate", "cityscape, mountains");
+        Planet kamino = new Planet("Kamino", "temperate", "ocean");
 
         planetRepository.saveAll(Arrays.asList(tatooine, alderaan, yavin, hoth, degobah, bespin, endor, naboo, coruscant, kamino));
 

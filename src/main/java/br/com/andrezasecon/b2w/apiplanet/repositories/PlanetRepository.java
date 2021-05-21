@@ -5,7 +5,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
+
 public interface PlanetRepository extends MongoRepository<Planet, String> {
 
     List<Planet> findByNameIgnoreCase(String name);
+
+    List<Planet> findPlanetByIdPlanet(Long idPlanet);
+
+    void deletePlanetById(Long idPlanet);
+
 }

@@ -1,13 +1,15 @@
 package br.com.andrezasecon.b2w.apiplanet.services;
 
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
 public interface PlanetService  {
 
     // Buscar todos os planetas
-    List<PlanetDTO> findAllPlanets();
+    Page<PlanetDTO> findAllPlanetsPaged(PageRequest pageRequest);
 
     // Buscar planeta pelo id
     List<PlanetDTO> findPlanetById(Long idPlanet);

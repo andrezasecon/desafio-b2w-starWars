@@ -8,6 +8,8 @@ import br.com.andrezasecon.b2w.apiplanet.services.exceptions.ResourceNotFoundExc
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,14 +24,14 @@ public class PlanetServiceImpl implements PlanetService {
     private PlanetRepository planetRepository;
 
     @Override
-    public List<PlanetDTO> findAllPlanets() {
-        List<Planet> list = planetRepository.findAll();
+    public Page<PlanetDTO> findAllPlanetsPaged(PageRequest pageRequest) {
+        Page<Planet> list = planetRepository.findAll(pageRequest);
         if (list.isEmpty()) {
             logger.info("Planets not found");
             throw new ResourceNotFoundException("Planets not found");
         } else {
             logger.info("Planets found");
-            return list.stream().map(x -> new PlanetDTO(x)).collect(Collectors.toList());
+            return list.map(x -> new PlanetDTO(x));
         }
     }
 
@@ -79,7 +81,7 @@ public class PlanetServiceImpl implements PlanetService {
 
         if (!list.isEmpty()) {
             logger.info("Planet deleted");
-            list.forEach(x->{
+            list.forEach(x -> {
                 planetRepository.deleteById(x.getId());
             });
 

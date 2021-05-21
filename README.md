@@ -180,9 +180,15 @@ Retorno esperado com status 200 ok
 http://localhost:8080/api
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findAll1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findAll.png)
 
+Busca paginada Retorno esperado com status 200 ok
 
+```
+http://localhost:8080/api?page=1&linesPerPage=5&direction=DESC&orderBy=name
+```
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findallpageble.png)
 
 #### Buscar um planeta pelo id (GET)
 

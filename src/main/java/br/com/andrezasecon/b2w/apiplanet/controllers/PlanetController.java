@@ -8,6 +8,9 @@ import br.com.andrezasecon.b2w.apiplanet.services.PlanetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +33,23 @@ public class PlanetController implements PlanetControllerDoc {
     @Autowired
     private ClientFeignSwapi clientFeignSwapi;
 
+    @Override
+    public ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(PageRequest pageRequest) {
+        return null;
+    }
+
     @GetMapping
-    public ResponseEntity<List<PlanetDTO>> findAllPlanets() {
-        List<PlanetDTO> planetList = planetService.findAllPlanets();
+    public ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction
+    ) {
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+
+        Page<PlanetDTO> planetList = planetService.findAllPlanetsPaged(pageRequest);
+
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
             planetsApi.getResults().stream().forEach(swapiPlanet ->
@@ -67,7 +84,7 @@ public class PlanetController implements PlanetControllerDoc {
     }
 
     @PostMapping
-    public ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO planetDTO ) {
+    public ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO planetDTO) {
         planetDTO = planetService.insertPlanet(planetDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
                 .buildAndExpand(planetDTO.getIdPlanet()).toUri();

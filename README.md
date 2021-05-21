@@ -203,7 +203,7 @@ http://localhost:8080/api/find/tatooine
 
 
 
-Retorno esperado para nome inválido com status 204 Not Found
+Retorno esperado para nome inválido com status 404 Not Found
 
 ```
 http://localhost:8080/api/find/tatooi

@@ -58,6 +58,20 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 \- Swagger
 
+### *Requisitos para executar o projeto em ambiente local:
+
+- Docker
+- Docker compose
+
+
+#### Testes unitários e teste de integração
+
+Para rodar os testes foi configurado uma docker do mongoDb para subir em memória, então é decessário alterar as permissões do docker.sock
+
+```
+sudo chmod 666 /var/run/docker.sock
+```
+
 ### **Como executar o projeto:**
 
 Criar um pasta para o projeto, abrir o terminal nesta pasta e clonar o projeto
@@ -65,7 +79,6 @@ Criar um pasta para o projeto, abrir o terminal nesta pasta e clonar o projeto
 ```
 git clone https://github.com/andrezasecon/desafio-b2w-starWars.git
 ```
-
 
 
 Abrir a pasta do projeto na IDE de sua preferência.
@@ -236,8 +249,6 @@ http://localhost:8080/api/20
 ![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/deleteerror1.png)
 
 #### 
-
-
 
 
 

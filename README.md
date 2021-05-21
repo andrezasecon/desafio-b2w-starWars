@@ -230,7 +230,7 @@ Retorno esperado com status 204 Not Found
 Retorno esperado caso o id não exista na base com status 404 Not Found
 
 ```
-http://localhost:8080/api/60a47391802bdf5d4fc
+http://localhost:8080/api/20
 ```
 
 ![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/deleteerror.png)

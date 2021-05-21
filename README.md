@@ -54,7 +54,7 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 \- Mock Server
 
-\- Postman e JUNIT
+\- Postman e JUNIT 5
 
 \- Swagger
 
@@ -140,6 +140,22 @@ Retorno esperado caso o planeta já exista na base com status 409 Conflict
 
 
 ![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/insertconflict.png)
+
+
+
+Retorno esperado caso o usuário tente inserir algum campo em branco, status 400 Bad request
+
+```
+{
+    "name": " ",
+    "climate": " ",
+    "terrain": " "
+}
+```
+
+
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/insertValidation.png)
 
 
 

@@ -72,7 +72,6 @@ public class PlanetServiceTest {
 
         String name = "Tatooine";
 
-        // Planet planet = new Planet(100, "Tatooine", "arid", "desert");
         List<Planet> list = Arrays.asList(
                 new Planet(1L, name, "arid", "desert"));
 

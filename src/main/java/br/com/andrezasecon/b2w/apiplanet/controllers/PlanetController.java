@@ -67,11 +67,11 @@ public class PlanetController implements PlanetControllerDoc {
     }
 
     @PostMapping
-    public ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO pdto) {
-        pdto = planetService.insertPlanet(pdto);
+    public ResponseEntity<PlanetDTO> insertPlanet(@RequestBody @Valid PlanetDTO planetDTO ) {
+        planetDTO = planetService.insertPlanet(planetDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(pdto.getIdPlanet()).toUri();
-        return ResponseEntity.created(uri).body(pdto);
+                .buildAndExpand(planetDTO.getIdPlanet()).toUri();
+        return ResponseEntity.created(uri).body(planetDTO);
     }
 
     @DeleteMapping(value = "/{id}")

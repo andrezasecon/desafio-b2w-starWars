@@ -7,12 +7,10 @@ import br.com.andrezasecon.b2w.apiplanet.services.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 
-//@Configuration
-//@Profile("!test")
+@Configuration
 public class Instantiation implements CommandLineRunner {
 
     @Autowired
@@ -27,7 +25,6 @@ public class Instantiation implements CommandLineRunner {
         planetRepository.deleteAll();
 
         generatorService.deleteSequence();
-
 
 
         Planet tatooine = new Planet("Tatooine", "arid", "desert");

@@ -115,7 +115,7 @@ No postman, na aba Body, clicar em raw e setar o tipo para JSON, os dados devem 
 
 ```
 {
-    "name": "Teste",
+    "name": "Hotundu",
     "climate": "arid",
     "terrain": "Montain"
 }
@@ -131,7 +131,7 @@ Retorno esperado caso o planeta já exista na base com status 409 Conflict
 
 ```
 {
-    "name": "Teste",
+    "name": "Hotundu",
     "climate": "arid",
     "terrain": "Montain"
 }
@@ -174,7 +174,7 @@ Retorno esperado com status 200 ok
 #### Buscar um planeta pelo id (GET)
 
 ```
-http://localhost:8080/api/60a45703ab3d262026fdfcce
+http://localhost:8080/api/1
 ```
 
 Retorno esperado com status 200 ok
@@ -186,7 +186,7 @@ Retorno esperado com status 200 ok
 Retorno esperado em caso de id inválido 404 Not Found
 
 ```
-http://localhost:8080/api/60a45703ab3d262026fd
+http://localhost:8080/api/15
 ```
 
 ![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findbyiderror.png)

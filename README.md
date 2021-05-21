@@ -1,6 +1,6 @@
 
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/swapi.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/swapi.png)
 
 
 
@@ -123,7 +123,7 @@ Retorno da consulta esperado com status 201 Created
 }
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/insert1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/insert1.png)
 
 
 
@@ -137,7 +137,7 @@ Retorno esperado caso o planeta já exista na base com status 409 Conflict
 }
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/insertconflict1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/insertconflict1.png)
 
 
 
@@ -151,7 +151,7 @@ Retorno esperado caso o usuário tente inserir algum campo em branco, status 400
 }
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/insertValidation1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/insertValidation1.png)
 
 
 
@@ -165,7 +165,7 @@ Retorno esperado com status 200 ok
 http://localhost:8080/api
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findAll1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findAll1.png)
 
 
 
@@ -177,7 +177,7 @@ Retorno esperado com status 200 ok
 http://localhost:8080/api/1
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findbyid1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findbyid1.png)
 
 
 
@@ -187,7 +187,7 @@ Retorno esperado em caso de id inválido 404 Not Found
 http://localhost:8080/api/15
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findbyiderror1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findbyiderror1.png)
 
 
 
@@ -199,7 +199,7 @@ Retorno esperado com status 200 ok
 http://localhost:8080/api/find/tatooine
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findByName1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findByName1.png)
 
 
 
@@ -209,7 +209,7 @@ Retorno esperado para nome inválido com status 204 Not Found
 http://localhost:8080/api/find/tatooi
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/findbynameerror1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/findbynameerror1.png)
 
 
 
@@ -221,7 +221,7 @@ Retorno esperado com status 204 Not Found
 http://localhost:8080/api/
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/delete1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/delete1.png)
 
 
 
@@ -231,7 +231,7 @@ Retorno esperado caso o id não exista na base com status 404 Not Found
 http://localhost:8080/api/20
 ```
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/develop/img/deleteerror1.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/deleteerror1.png)
 
 #### 
 

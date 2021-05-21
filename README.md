@@ -97,7 +97,9 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED      STATUS      
 574ca0ea3a08   mongo:latest   "docker-entrypoint.s…"   8 days ago   Up 6 days   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp   mongodb_mongodb_container_1
 ```
 
-Agora basta dar um Run na classe ApiPlanetApplication e utilizar o Postman para acessar os endpoints da aplicação.
+Agora basta dar um Run na classe ApiPlanetApplication e utilizar o Postman para acessar os endpoints da aplicação. Quando a aplicação é iniciada, por configuração, ela deleta todo o banco e insere 10 planetas para teste.
+
+Os teste podem ser feitos via Postman, como mostrado abaixou ou via Swagger acessando http://localhost:8080/swagger-ui.html#
 
 
 

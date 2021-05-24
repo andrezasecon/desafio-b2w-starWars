@@ -46,17 +46,19 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 \- Java 11
 
-\- Spring Boot 2
+\- Spring Boot 2.2.6.RELEASE
 
-\-  OpenFeign
+\-  OpenFeign 2.2.8.RELEASE
 
 \- MongoDB
 
-\- Mock Server
+\- Mock Server Client 3.10.8
 
-\- Postman e JUNIT 5
+\- Postman
 
-\- Swagger
+\- JUNIT 5
+
+\- Swagger 2.9.2
 
 ### *Requisitos para executar o projeto em ambiente local:
 

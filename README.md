@@ -238,7 +238,7 @@ http://localhost:8080/api/find/tatooi
 
 #### Deletar um planeta pelo id (DELETE)
 
-Retorno esperado com status 204 Not Found
+Retorno esperado com status 204 No content
 
 ```
 http://localhost:8080/api/

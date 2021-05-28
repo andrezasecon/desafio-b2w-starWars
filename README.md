@@ -76,8 +76,8 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 ### *Requisitos para executar o projeto em produção:
 
-- Postman pela URL https://star-wars-challenger.herokuapp.com/api 
-- Swagger https://star-wars-challenger.herokuapp.com//swagger-ui.html
+- Postman pela URL https://apiplanet.herokuapp.com/api
+- Swagger https://apiplanet.herokuapp.com//swagger-ui.html
 
 
 #### Testes unitários e teste de integração

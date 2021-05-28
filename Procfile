@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* br.com.andrezasecon.b2w.apiplanet.ApiplanetApplication
+web: java -Dserver.port=$PORT -jar target/apiplanet-0.0.1-SNAPSHOT.jar

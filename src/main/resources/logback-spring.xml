@@ -2,7 +2,7 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
-    <springProfile name="local">
+    <springProfile name="prod">
         <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
         <root level="INFO">

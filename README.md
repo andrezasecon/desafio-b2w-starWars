@@ -60,21 +60,35 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 \- Swagger 2.9.2
 
+\- GitHub
+
+\- Heroku como servidor Web
+
+\- Heroku CLI para deploy na Heroku
+
+\- MongoDB atlas para banco em produção
+
+
 ### *Requisitos para executar o projeto em ambiente local:
 
 - Docker
 - Docker compose
 
+### *Requisitos para executar o projeto em produção:
+
+- Postman pela URL https://star-wars-challenger.herokuapp.com/api 
+- Swagger https://star-wars-challenger.herokuapp.com//swagger-ui.html
+
 
 #### Testes unitários e teste de integração
 
-Para rodar os testes foi configurado uma docker do mongoDb para subir em memória, então é decessário alterar as permissões do docker.sock
+Para rodar os testes foi configurado uma docker do mongoDb para subir em memória, então é decessário alterar as permissões do docker.sock, o container principal configurado a seguir deve estar parado.
 
 ```
 sudo chmod 666 /var/run/docker.sock
 ```
 
-### **Como executar o projeto:**
+### **Como executar o projeto localmente:**
 
 Criar um pasta para o projeto, abrir o terminal nesta pasta e clonar o projeto
 
@@ -114,12 +128,13 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED      STATUS      
 
 Agora basta dar um Run na classe ApiPlanetApplication e utilizar o Postman para acessar os endpoints da aplicação. Quando a aplicação é iniciada, por configuração, ela deleta todo o banco e insere 10 planetas para teste.
 
-Os teste podem ser feitos via Postman, como mostrado abaixou ou via Swagger acessando http://localhost:8080/swagger-ui.html#
 
+#### Teste em ambiente local
+
+Os teste podem ser feitos via Postman na URL http://localhost:8080/api como mostrado abaixou ou via Swagger acessando http://localhost:8080/swagger-ui.html#
 
 
 ### **Funcionalidades implementadas**
-
 
 
 #### Inserir um planeta (POST)

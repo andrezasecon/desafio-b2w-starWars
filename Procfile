@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* br.com.andrezasecon.b2w.api
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* br.com.andrezasecon.b2w.apiplanet.ApiplanetApplication

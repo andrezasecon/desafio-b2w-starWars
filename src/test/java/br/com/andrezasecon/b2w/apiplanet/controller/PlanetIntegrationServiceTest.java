@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Testcontainers
 @SpringBootTest
 @TestPropertySource("classpath:/test.properties")
-public class PlanetControllerTest {
+public class PlanetIntegrationServiceTest {
 
     @Autowired
     private PlanetServiceImpl planetService;

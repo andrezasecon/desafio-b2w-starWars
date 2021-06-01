@@ -1,4 +1,4 @@
-package br.com.andrezasecon.b2w.apiplanet.controller;
+package br.com.andrezasecon.b2w.apiplanet.service;
 
 import br.com.andrezasecon.b2w.apiplanet.domains.Planet;
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;

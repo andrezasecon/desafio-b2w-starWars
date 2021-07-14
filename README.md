@@ -44,7 +44,7 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 Foi utilizado o padrão em camadas na implementação do projeto
 
-![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/padrao-camadas-m2w.png)
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/release-1/img/padrao-camadas-m2w.png)
 
 ### **Tecnologias Utilizadas:** 
 

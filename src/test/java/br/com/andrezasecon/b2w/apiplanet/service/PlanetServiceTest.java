@@ -4,7 +4,6 @@ import br.com.andrezasecon.b2w.apiplanet.domains.Planet;
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 import br.com.andrezasecon.b2w.apiplanet.repositories.PlanetRepository;
 import br.com.andrezasecon.b2w.apiplanet.services.PlanetServiceImpl;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;

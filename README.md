@@ -40,7 +40,11 @@ Para possibilitar a equipe de front criar essa aplicação, queremos desenvolver
 
 \- Remover planeta
 
+### **Padrão do projeto** 
 
+Foi utilizado o padrão em camadas na implementação do projeto
+
+![](https://github.com/andrezasecon/desafio-b2w-starWars/blob/master/img/padrao-camadas-m2w.png)
 
 ### **Tecnologias Utilizadas:** 
 

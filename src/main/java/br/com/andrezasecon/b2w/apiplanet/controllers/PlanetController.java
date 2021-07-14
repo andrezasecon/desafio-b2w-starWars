@@ -30,11 +30,8 @@ public class PlanetController implements PlanetControllerDoc {
 
     @GetMapping
     public ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(Pageable pageable) {
-
-
         Page<PlanetDTO> planetList = planetService.findAllPlanetsPaged(pageable);
-
-        planetList.stream().forEach(p -> {
+        planetList.forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
             planetsApi.getResults().forEach(swapiPlanet ->
                     p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())

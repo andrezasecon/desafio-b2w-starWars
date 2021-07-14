@@ -5,12 +5,9 @@ import br.com.andrezasecon.b2w.apiplanet.client.PlanetSwapiPaginationResponse;
 import br.com.andrezasecon.b2w.apiplanet.controllers.doc.PlanetControllerDoc;
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 import br.com.andrezasecon.b2w.apiplanet.services.PlanetService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,34 +22,21 @@ import java.util.List;
 @Validated
 public class PlanetController implements PlanetControllerDoc {
 
-    private static final Logger logger = LoggerFactory.getLogger(PlanetController.class);
-
     @Autowired
     private PlanetService planetService;
 
     @Autowired
     private ClientFeignSwapi clientFeignSwapi;
 
-    @Override
-    public ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(PageRequest pageRequest) {
-        return null;
-    }
-
     @GetMapping
-    public ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
-            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
-            @RequestParam(value = "direction", defaultValue = "ASC") String direction
-    ) {
+    public ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(Pageable pageable) {
 
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 
-        Page<PlanetDTO> planetList = planetService.findAllPlanetsPaged(pageRequest);
+        Page<PlanetDTO> planetList = planetService.findAllPlanetsPaged(pageable);
 
         planetList.stream().forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
-            planetsApi.getResults().stream().forEach(swapiPlanet ->
+            planetsApi.getResults().forEach(swapiPlanet ->
                     p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
             );
         });
@@ -62,9 +46,9 @@ public class PlanetController implements PlanetControllerDoc {
     @GetMapping(value = "/{id}")
     public ResponseEntity<List<PlanetDTO>> findPlanetById(@PathVariable Long id) {
         List<PlanetDTO> planetList = planetService.findPlanetById(id);
-        planetList.stream().forEach(p -> {
+        planetList.forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
-            planetsApi.getResults().stream().forEach(swapiPlanet ->
+            planetsApi.getResults().forEach(swapiPlanet ->
                     p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
             );
         });
@@ -74,9 +58,9 @@ public class PlanetController implements PlanetControllerDoc {
     @GetMapping(value = "/find/{name}")
     public ResponseEntity<List<PlanetDTO>> findPlanetByName(@PathVariable String name) {
         List<PlanetDTO> planetList = planetService.findByNameIgnoreCase(name);
-        planetList.stream().forEach(p -> {
+        planetList.forEach(p -> {
             PlanetSwapiPaginationResponse planetsApi = clientFeignSwapi.getPlanetsByName(p.getName());
-            planetsApi.getResults().stream().forEach(swapiPlanet ->
+            planetsApi.getResults().forEach(swapiPlanet ->
                     p.setFilmsAppearances(swapiPlanet.getFilms().size() + p.getFilmsAppearances())
             );
         });

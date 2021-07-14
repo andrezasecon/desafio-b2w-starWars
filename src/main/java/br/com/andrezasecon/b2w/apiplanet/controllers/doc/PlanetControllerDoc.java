@@ -3,7 +3,7 @@ package br.com.andrezasecon.b2w.apiplanet.controllers.doc;
 import br.com.andrezasecon.b2w.apiplanet.dto.PlanetDTO;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +21,7 @@ public interface PlanetControllerDoc {
             @ApiResponse(code = 404, message = "Resource Not Found."),
             @ApiResponse(code = 400, message = "Bad request.")
     })
-    ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(PageRequest pageRequest);
+    ResponseEntity<Page<PlanetDTO>> findAllPlanetsPaged(Pageable pageable);
 
     @ApiOperation(value = "Planet by id")
     @ApiResponses(value = {

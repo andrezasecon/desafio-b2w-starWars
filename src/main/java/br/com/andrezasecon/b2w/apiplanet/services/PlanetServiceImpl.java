@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public class PlanetServiceImpl implements PlanetService {
     private PlanetRepository planetRepository;
 
     @Override
-    public Page<PlanetDTO> findAllPlanetsPaged(PageRequest pageRequest) {
-        Page<Planet> list = planetRepository.findAll(pageRequest);
+    public Page<PlanetDTO> findAllPlanetsPaged(Pageable pageable) {
+        Page<Planet> list = planetRepository.findAll(pageable);
         if (list.isEmpty()) {
             logger.info("Planets not found");
             throw new ResourceNotFoundException("Planets not found");

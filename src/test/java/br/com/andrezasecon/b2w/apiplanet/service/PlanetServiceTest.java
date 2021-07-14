@@ -9,18 +9,22 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -39,19 +43,25 @@ public class PlanetServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-//    @Test
-//    public void findPlanetsTest() {
-//        Page<Planet> list = Arrays.asList(
-//                new Planet(1L, "Tatooine", "arid", "desert"),
-//                new Planet(1L, "Alderaan", "temperate", "grasslands, mountains")
-//        );
-//        when(planetRepository.findAll()).thenReturn(list);
-//
-//        Page<PlanetDTO> planetsDto = planetService.findAllPlanetsPaged();
-//
-//        assertThat(planetsDto, hasSize(2));
-//
-//    }
+    @Test
+    public void findPlanetsTest() {
+
+        List<Planet> lista = Arrays.asList(
+                new Planet(1L, "Tatooine", "arid", "desert"),
+                new Planet(1L, "Alderaan", "temperate", "grasslands, mountains")
+        );
+
+        Page<Planet> planetPage = new PageImpl<Planet>(lista);
+
+        when(planetRepository.findAll(ArgumentMatchers.any(PageRequest.class))).thenReturn(planetPage);
+
+        PageRequest pageRequest = PageRequest.of(0, 12, Sort.Direction.valueOf("ASC"), "name");
+        Page<PlanetDTO> planetsDto = planetService.findAllPlanetsPaged(pageRequest);
+
+        assertEquals(planetsDto.getTotalElements(), 2);
+        assertEquals(planetsDto.getTotalPages(), 1);
+
+    }
 
     @Test
     public void findPlanetByNameTest() {
@@ -66,7 +76,7 @@ public class PlanetServiceTest {
 
         List<PlanetDTO> planetsDto = planetService.findByNameIgnoreCase(name);
         assertThat(planetsDto, hasSize(2));
-        Assert.assertEquals("Tatooine", name);
+        assertEquals("Tatooine", name);
     }
 
     @Test
@@ -82,7 +92,7 @@ public class PlanetServiceTest {
 
         List<PlanetDTO> dto = planetService.findPlanetById(idPlanet);
         assertThat(dto, hasSize(1));
-        Assert.assertEquals(name, list.get(0).getName());
+        assertEquals(name, list.get(0).getName());
     }
 
     @Test
